@@ -39,6 +39,9 @@ namespace MarsRover.Logic_Layer
             }
         }
 
-        public void
+        public void MoveRover(Instruction instruction)
+        {
+
+        }
     }
 }

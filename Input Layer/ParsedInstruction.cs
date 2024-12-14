@@ -6,7 +6,7 @@ namespace MarsRover.Input_Layer
     {
         public List<Instruction> Instructions { get; set; } = new();
 
-        public bool IsInvalid = false;
+        public bool IsValid = false;
 
         public ParsedInstruction(string instructionInputString)
         {
@@ -25,8 +25,13 @@ namespace MarsRover.Input_Layer
                     _ => Instruction.INVALID
                 };
 
-                if (instruction == Instruction.INVALID) IsInvalid = true;
-
+                if (instruction == Instruction.INVALID)
+                {
+                    IsValid = false;
+                    Instructions.Clear();
+                    break;
+                }
+                IsValid = true;
                 Instructions.Add(instruction);
             } 
         }
