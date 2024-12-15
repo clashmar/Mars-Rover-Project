@@ -15,7 +15,11 @@ namespace MarsRover.Logic_Layer
             MissionControl.Rovers.Add(this);
         }
 
-        //ExectuteInstructionMethod
+        public void ExecuteInstruction(Instruction instruction)
+        {
+            if (instruction == Instruction.M) MoveRover();
+            else RotateRover(instruction);
+        }
 
         public void RotateRover(Instruction instruction)
         {
@@ -49,30 +53,26 @@ namespace MarsRover.Logic_Layer
 
         public void MoveRover()
         {
-            int[] targetCoordinate = Position.Facing switch
-            {
-                CompassDirection.N => targetCoordinate = [Position.X, Position.Y + 1],
-                CompassDirection.E => targetCoordinate = [Position.X + 1, Position.Y],
-                CompassDirection.S => targetCoordinate = [Position.X, Position.Y - 1],
-                CompassDirection.W => targetCoordinate = [Position.X - 1, Position.Y],
-                _ => targetCoordinate = [Position.X, Position.Y]
-            };
+            int[] targetCoordinate = GetTargetCoordinate();
 
-            if(IsCoordinateOccupied(targetCoordinate)) { IsObstructed = true; return; }
             if(Plateau.IsOutOfBounds(targetCoordinate)) { IsObstructed= true; return; }
+            if(MissionControl.IsCoordinateOccupied(targetCoordinate)) { IsObstructed = true; return; }
 
+            IsObstructed = false;
             Position.X = targetCoordinate[0];
             Position.Y = targetCoordinate[1];
         }
 
-        public bool IsCoordinateOccupied(int[] targetCoordinate)
+        public int[] GetTargetCoordinate()
         {
-            foreach(Rover rover in MissionControl.Rovers)
+            return Position.Facing switch
             {
-                if(rover.Position.X == targetCoordinate[0] && rover.Position.Y == targetCoordinate[1]) return true;
-            }
-
-            return false;
+                CompassDirection.N => [Position.X, Position.Y + 1],
+                CompassDirection.E => [Position.X + 1, Position.Y],
+                CompassDirection.S => [Position.X, Position.Y - 1],
+                CompassDirection.W => [Position.X - 1, Position.Y],
+                _ => [Position.X, Position.Y]
+            };
         }
     }
 }

@@ -1,10 +1,21 @@
-﻿namespace MarsRover
+﻿using MarsRover.Input_Layer;
+
+namespace MarsRover
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            List<string> input = new List<string>
+            {
+                "5 5",
+                "1 2 N",
+                "LMLMLMLMM",
+                "3 3 E",
+                "MMRMMRMRRM"
+            };
+
+            InputControl.ExecuteInput(input);
         }
     }
 }
