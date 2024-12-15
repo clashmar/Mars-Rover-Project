@@ -1,10 +1,10 @@
 ﻿namespace MarsRover.Input_Layer
 {
-    public class ParsedPlateauSize
+    public class ParsedPlateauSize : IParsed
     {
         public PlateauSize PlateauSize { get; set; } = new(0, 0);
 
-        public bool IsValid = false;
+        public bool IsValid { get; set; } = false;
 
         public ParsedPlateauSize(string plateauInputString)
         {

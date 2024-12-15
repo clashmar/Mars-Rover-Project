@@ -2,11 +2,11 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class ParsedInstructions
+    public class ParsedInstructions : IParsed
     {
         public List<Instruction> Instructions { get; set; } = new();
 
-        public bool IsValid = false;
+        public bool IsValid { get; set; }  = false;
 
         public ParsedInstructions(string instructionInputString)
         {

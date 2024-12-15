@@ -7,31 +7,38 @@ namespace MarsRover.Logic_Layer
     {
         public static List<Rover> Rovers = [];
 
-        public static List<string> Mission = [];
+        public static List<IParsed> Mission = [];
 
-        public static void ExecuteMissionList(List<string> input)
+        public static void ExecuteMissionList()
         {
-            ParsedPlateauSize parsedPlateauSize = new(input[0]);
-            if (!parsedPlateauSize.IsValid) { Console.WriteLine("Not a valid plateau size."); return; }
-            Plateau.plateauSize = parsedPlateauSize.PlateauSize;
+            if (Mission[0] is ParsedPlateauSize parsedPlateauSize) Plateau.plateauSize = parsedPlateauSize.PlateauSize;
 
-            for (int i = 1; i < input.Count; i++)
+            for (int i = 1; i < Mission.Count; i++)
             {
                 if (i % 2 == 1)
                 {
-                    ParsedPosition parsedPosition = new(input[i]);
-                    if (!parsedPosition.IsValid) { Console.WriteLine("This position is not valid."); return; }
-                    if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine($"\nRover {MissionControl.Rovers.Count + 1} could not land!"); return; };
-                    Rover newRover = new(parsedPosition.Position);
-
-                    ParsedInstructions parsedInstructions = new(input[i + 1]);
-                    if (!parsedInstructions.IsValid) { Console.WriteLine("These instructions are invalid."); return; }
-                    foreach (Instruction instruction in parsedInstructions.Instructions)
+                    if (Mission[i] is ParsedPosition parsedPosition)
                     {
-                        newRover.ExecuteInstruction(instruction);
+                        if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine($"\nRover {MissionControl.Rovers.Count + 1} could not land!"); return; };
+                        Rover newRover = new(parsedPosition.Position);
+                    }
+
+                    if (Mission[i+1] is ParsedInstructions parsedInstructions)
+                    {
+                        foreach (Instruction instruction in parsedInstructions.Instructions)
+                        {
+                            MissionControl.Rovers.Last().ExecuteInstruction(instruction);
+                        }
                     }
                 }
             }
+        }
+
+        public static void ResetMission()
+        {
+            Rovers.Clear();
+            Mission.Clear();
+            Plateau.plateauSize = new(0,0);
         }
 
         public static bool IsCoordinateOccupied(int[] targetCoordinate)

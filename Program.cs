@@ -10,9 +10,16 @@ namespace MarsRover
     {
         static void Main(string[] args)
         {
+            UserInterface.DisplayWelcome();
+
             UserInterface.programStatus = ProgramStatus.USER_INPUT;
-            UserInterface.GetUserInput();
-            UserInterface.DisplayResult();
+            while (UserInterface.programStatus != ProgramStatus.COMPLETE)
+            {
+                UserInterface.GetUserInput();
+                UserInterface.DisplayResult();
+                UserInterface.PlayAgainPrompt();
+                MissionControl.ResetMission();
+            }
         }
     }
 }
