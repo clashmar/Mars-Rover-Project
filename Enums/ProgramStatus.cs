@@ -2,7 +2,8 @@
 {
     public enum ProgramStatus
     {
-        NORMAL,
+        PROCESSING,
+        USER_INPUT,
         COMPLETE,
         ERROR
     }
