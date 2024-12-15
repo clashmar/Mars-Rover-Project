@@ -2,10 +2,9 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class RoverPostion(int x, int y, CompassDirection facing)
+    public class RoverPostion(int[] coordinates, CompassDirection facing)
     {
-        public int X { get; set; } = x;
-        public int Y { get; set; } = y;
+        public int[] XYCoordinates { get; set; } = coordinates;
         public CompassDirection Facing { get; set; } = facing;
     }
 }

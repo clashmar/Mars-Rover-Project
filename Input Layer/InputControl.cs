@@ -10,16 +10,6 @@ namespace MarsRover.Input_Layer
 {
     public static class InputControl
     {
-        //Parse first input line as plateau size and if successful Set PlateauSize
-
-        //Land first rover in a valid location
-
-        //Execute the instructions
-
-        //Repeat for all subsequent Rovers
-
-        //Get final positions
-
         public static void ExecuteInput(List<String> input) 
         {
             ParsedPlateauSize parsedPlateauSize = new(input[0]);
@@ -32,7 +22,7 @@ namespace MarsRover.Input_Layer
                 {
                     ParsedPosition parsedPosition = new(input[i]);
                     if (!parsedPosition.IsValid) { Console.WriteLine("This position is not valid."); return; }
-                    if (!MissionControl.IsSafeToLand(parsedPosition.Position)) { Console.WriteLine("It's not safe to land here."); return; };
+                    if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine("It's not safe to land here."); return; };
                     Rover newRover = new(parsedPosition.Position);
 
                     ParsedInstructions parsedInstructions = new(input[i + 1]);
@@ -41,7 +31,7 @@ namespace MarsRover.Input_Layer
                     {
                         newRover.ExecuteInstruction(instruction);
                     }
-                    Console.WriteLine($"{newRover.Position.X} {newRover.Position.Y} {Enum.GetName(newRover.Position.Facing)}\n");
+                    Console.WriteLine($"{newRover.Position.XYCoordinates[0]} {newRover.Position.XYCoordinates[1]} {Enum.GetName(newRover.Position.Facing)}\n");
                 }
             }
         }

@@ -4,7 +4,7 @@ namespace MarsRover.Input_Layer
 {
     public class ParsedPosition
     {
-        public RoverPostion Position { get; set; } = new RoverPostion(-1, -1, CompassDirection.INVALID);
+        public RoverPostion Position { get; set; } = new RoverPostion([-1, -1], CompassDirection.INVALID);
 
         public bool IsValid = false;
 
@@ -28,7 +28,7 @@ namespace MarsRover.Input_Layer
             if (compassDirection.Direction == CompassDirection.INVALID) return;
 
             IsValid = true;
-            Position = new(resultX, resultY, compassDirection.Direction);
+            Position = new([resultX, resultY], compassDirection.Direction);
         }
     }
 }
