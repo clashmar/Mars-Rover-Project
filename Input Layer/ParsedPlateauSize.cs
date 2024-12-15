@@ -25,7 +25,7 @@
             if(resultX <= 0 || resultY <= 0) return;
 
             IsValid = true;
-            this.PlateauSize = new(resultX, resultY);
+            this.PlateauSize = new(resultX+1, resultY+1);
         }
     }
 }

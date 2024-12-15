@@ -3,9 +3,17 @@ using MarsRover.Input_Layer;
 
 namespace MarsRover.Logic_Layer
 {
-    public class Rover(RoverPostion position)
+    public class Rover
     {
-        public RoverPostion Postion { get; set; } = position;
+        public RoverPostion Position { get; set;}
+        
+        public bool IsObstructed = false;
+
+        public Rover(RoverPostion position)
+        {
+            Position = position;
+            MissionControl.Rovers.Add(this);
+        }
 
         //ExectuteInstructionMethod
 
@@ -13,24 +21,24 @@ namespace MarsRover.Logic_Layer
         {
             if(instruction == Instruction.R)
             {
-                Postion.Facing = Postion.Facing switch
+                Position.Facing = Position.Facing switch
                 {
                     CompassDirection.N => CompassDirection.E,
                     CompassDirection.E => CompassDirection.S,
                     CompassDirection.S => CompassDirection.W,
                     CompassDirection.W => CompassDirection.N,
-                    _ => Postion.Facing
+                    _ => Position.Facing
                 };
             }
             else if(instruction == Instruction.L) 
             {
-                Postion.Facing = Postion.Facing switch
+                Position.Facing = Position.Facing switch
                 {
                     CompassDirection.N => CompassDirection.W,
                     CompassDirection.E => CompassDirection.N,
                     CompassDirection.S => CompassDirection.E,
                     CompassDirection.W => CompassDirection.S,
-                    _ => Postion.Facing
+                    _ => Position.Facing
                 };
             } 
             else
@@ -39,9 +47,32 @@ namespace MarsRover.Logic_Layer
             }
         }
 
-        public void MoveRover(Instruction instruction)
+        public void MoveRover()
         {
+            int[] targetCoordinate = Position.Facing switch
+            {
+                CompassDirection.N => targetCoordinate = [Position.X, Position.Y + 1],
+                CompassDirection.E => targetCoordinate = [Position.X + 1, Position.Y],
+                CompassDirection.S => targetCoordinate = [Position.X, Position.Y - 1],
+                CompassDirection.W => targetCoordinate = [Position.X - 1, Position.Y],
+                _ => targetCoordinate = [Position.X, Position.Y]
+            };
 
+            if(IsCoordinateOccupied(targetCoordinate)) { IsObstructed = true; return; }
+            if(Plateau.IsOutOfBounds(targetCoordinate)) { IsObstructed= true; return; }
+
+            Position.X = targetCoordinate[0];
+            Position.Y = targetCoordinate[1];
+        }
+
+        public bool IsCoordinateOccupied(int[] targetCoordinate)
+        {
+            foreach(Rover rover in MissionControl.Rovers)
+            {
+                if(rover.Position.X == targetCoordinate[0] && rover.Position.Y == targetCoordinate[1]) return true;
+            }
+
+            return false;
         }
     }
 }
