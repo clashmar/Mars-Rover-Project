@@ -10,9 +10,6 @@ namespace MarsRover.UI
         public static void DisplayWelcome()
         {
             Console.WriteLine("Welcome to the (state of the art) Mars Rover Simulator 1996.\n");
-
-            Console.WriteLine("Please enter the size of the plateau on Mars you will be navigating in the form 'X Y', " +
-                "where X and Y are the maximum coordinates of a rectangular grid:");
         }
 
         public static void GetUserInput()
@@ -21,11 +18,11 @@ namespace MarsRover.UI
             {
                 while (true)
                 {
+                    Console.WriteLine("Please enter the size of the plateau on Mars you will be navigating in the form 'X Y', " +
+                "where X and Y are the maximum coordinates of a rectangular grid:");
                     string? inputPlateauString = Console.ReadLine();
                     if (String.IsNullOrEmpty(inputPlateauString)) { Console.WriteLine("Please enter some values."); continue; }
-
                     ParsedPlateauSize parsedPlateauSize = new(inputPlateauString);
-
                     if (!parsedPlateauSize.IsValid) { Console.WriteLine("Not a valid plateau size."); continue; }
                     MissionControl.Mission.Add(parsedPlateauSize); break;
                 }
@@ -48,7 +45,7 @@ namespace MarsRover.UI
                     }
 
                     Console.WriteLine("\nPlease enter the list of instructions for the new Rover to follow in the form an unbroken string of letters." +
-                        "L = Rotate 90 degrees Left, R = Rotate 90 degrees Right, M = Moves the Rover forward by one grid point.");
+                        " L = Rotate 90 degrees Left, R = Rotate 90 degrees Right, M = Moves the Rover forward by one grid point.");
                     while (true)
                     {
                         string? inputInstructionString = Console.ReadLine();
@@ -79,13 +76,21 @@ namespace MarsRover.UI
 
         public static void PlayAgainPrompt()
         {
-            ConsoleKey? yesNoInput = null;
-
             Console.WriteLine("\nDo you want to run the simulation again? (Y/N)");
+            ConsoleKey? yesNoInput = null;
             yesNoInput = YesOrNo(yesNoInput);
 
-            if(yesNoInput == ConsoleKey.N) programStatus = ProgramStatus.COMPLETE;
-            if (yesNoInput == ConsoleKey.Y) programStatus = ProgramStatus.USER_INPUT;
+            if (yesNoInput == ConsoleKey.N) 
+            {
+                Console.WriteLine("Returning to Earth...");
+                programStatus = ProgramStatus.COMPLETE;
+            } 
+            else
+            {
+                MissionControl.ResetMission();
+                Console.Clear();
+                programStatus = ProgramStatus.USER_INPUT;
+            }
         }
 
         private static ConsoleKey? YesOrNo(ConsoleKey? yesNoInput)
