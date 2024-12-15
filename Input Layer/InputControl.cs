@@ -22,7 +22,7 @@ namespace MarsRover.Input_Layer
                 {
                     ParsedPosition parsedPosition = new(input[i]);
                     if (!parsedPosition.IsValid) { Console.WriteLine("This position is not valid."); return; }
-                    if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine("It's not safe to land here."); return; };
+                    if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine($"\nRover {MissionControl.Rovers.Count+1} could not land!"); return; };
                     Rover newRover = new(parsedPosition.Position);
 
                     ParsedInstructions parsedInstructions = new(input[i + 1]);
@@ -31,7 +31,6 @@ namespace MarsRover.Input_Layer
                     {
                         newRover.ExecuteInstruction(instruction);
                     }
-                    Console.WriteLine($"{newRover.Position.XYCoordinates[0]} {newRover.Position.XYCoordinates[1]} {Enum.GetName(newRover.Position.Facing)}\n");
                 }
             }
         }

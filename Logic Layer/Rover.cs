@@ -9,10 +9,13 @@ namespace MarsRover.Logic_Layer
         
         public bool IsObstructed = false;
 
+        public string name;
+
         public Rover(RoverPostion position)
         {
             Position = position;
             MissionControl.Rovers.Add(this);
+            name = $"Rover {MissionControl.Rovers.Count}";
         }
 
         public void ExecuteInstruction(Instruction instruction)
@@ -53,25 +56,23 @@ namespace MarsRover.Logic_Layer
 
         public void MoveRover()
         {
-            int[] targetCoordinate = GetTargetCoordinate();
+            int[] targetCoordinates = GetTargetCoordinates();
 
-            if(Plateau.IsOutOfBounds(targetCoordinate)) { IsObstructed= true; return; }
-            if(MissionControl.IsCoordinateOccupied(targetCoordinate)) { IsObstructed = true; return; }
+            if(!MissionControl.IsCoordinateSafe(targetCoordinates)) { IsObstructed = true; return; }
 
             IsObstructed = false;
-            Position.X = targetCoordinate[0];
-            Position.Y = targetCoordinate[1];
+            Position.XYCoordinates = targetCoordinates;
         }
 
-        public int[] GetTargetCoordinate()
+        public int[] GetTargetCoordinates()
         {
             return Position.Facing switch
             {
-                CompassDirection.N => [Position.X, Position.Y + 1],
-                CompassDirection.E => [Position.X + 1, Position.Y],
-                CompassDirection.S => [Position.X, Position.Y - 1],
-                CompassDirection.W => [Position.X - 1, Position.Y],
-                _ => [Position.X, Position.Y]
+                CompassDirection.N => [Position.XYCoordinates[0], Position.XYCoordinates[1] + 1],
+                CompassDirection.E => [Position.XYCoordinates[0] + 1, Position.XYCoordinates[1]],
+                CompassDirection.S => [Position.XYCoordinates[0], Position.XYCoordinates[1] - 1],
+                CompassDirection.W => [Position.XYCoordinates[0] - 1, Position.XYCoordinates[1]],
+                _ => [Position.XYCoordinates[0], Position.XYCoordinates[1]]
             };
         }
     }

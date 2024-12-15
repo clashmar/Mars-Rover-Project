@@ -22,7 +22,7 @@ namespace MarsRover.Input_Layer
             bool xIsValid = int.TryParse(positionInputArray[0], out int resultX);
             bool yIsValid = int.TryParse(positionInputArray[1], out int resultY);
             if (!xIsValid || !yIsValid) return;
-            if (resultX <= 0 || resultY <= 0) return;
+            if (resultX < 0 || resultY < 0) return;
 
             ParsedCompassDirection compassDirection = new ParsedCompassDirection(positionInputArray[2]);
             if (compassDirection.Direction == CompassDirection.INVALID) return;
