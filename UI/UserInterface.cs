@@ -65,12 +65,46 @@ namespace MarsRover.UI
 
         public static void DisplayResult()
         {
-            MissionControl.ExecuteMissionList();
             Console.WriteLine("\nThese are the final positions of the Rovers:\n");
 
-            foreach (string position in MissionControl.CurrentPositionStrings())
+            List<string[]> rows = [];
+
+            for (int y = 0; y < Plateau.plateauSize.Y; y++)
             {
-                Console.WriteLine(position);
+                string[] newRow = new string[Plateau.plateauSize.X];
+
+                for(int x = 0; x < Plateau.plateauSize.X; x++)
+                {
+                    foreach(Rover rover in MissionControl.Rovers)
+                    {
+                        if(rover.Position.XYCoordinates[0] == x && rover.Position.XYCoordinates[1] == y)
+                        {
+                            newRow[x] = "R";
+                            break;
+                        }
+                        else
+                        {
+                            newRow[x] = "x";
+                        }
+                    }
+                }
+                rows.Add(newRow);
+            }
+
+            rows.Reverse();
+
+            foreach (string[] row in rows)
+            {
+                foreach(string symbol in row)
+                {
+                    Console.Write($"{symbol}  ");
+                }
+                Console.WriteLine("\n");
+            }
+
+            foreach (Rover rover in MissionControl.Rovers)
+            {
+                Console.WriteLine($"{rover.name}: ({rover.Position.XYCoordinates[0]}, {rover.Position.XYCoordinates[1]}, {Enum.GetName(rover.Position.Facing)})");
             }
         }
 

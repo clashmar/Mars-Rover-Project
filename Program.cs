@@ -1,5 +1,6 @@
 ﻿using MarsRover.UI;
 using MarsRover.Enums;
+using MarsRover.Logic_Layer;
 
 namespace MarsRover
 {
@@ -13,6 +14,7 @@ namespace MarsRover
             while (UserInterface.programStatus != ProgramStatus.COMPLETE)
             {
                 UserInterface.GetUserInput();
+                MissionControl.ExecuteMissionList();
                 UserInterface.DisplayResult();
                 UserInterface.PlayAgainPrompt();
             }
