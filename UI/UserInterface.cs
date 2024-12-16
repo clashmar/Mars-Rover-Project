@@ -10,6 +10,10 @@ namespace MarsRover.UI
         public static void DisplayWelcome()
         {
             Console.WriteLine("Welcome to the (state of the art) Mars Rover Simulator 1996.\n");
+
+            Console.WriteLine("Your adventure will take place on the most exciting of all shapes... A regular grid!");
+            Console.WriteLine("When choosing the size of the plateau, please enter its maximum coordinates in the form X Y.");
+            Console.WriteLine("The minimum coordinates are 0 0");
         }
 
         public static void GetUserInput()
@@ -18,8 +22,7 @@ namespace MarsRover.UI
             {
                 while (true)
                 {
-                    Console.WriteLine("Please enter the size of the plateau on Mars you will be navigating in the form 'X Y', " +
-                "where X and Y are the maximum coordinates of a rectangular grid:");
+                    Console.WriteLine("Enter plateau size (X Y):");
                     string? inputPlateauString = Console.ReadLine();
                     if (String.IsNullOrEmpty(inputPlateauString)) { Console.WriteLine("Please enter some values."); continue; }
                     ParsedPlateauSize parsedPlateauSize = new(inputPlateauString);
@@ -68,20 +71,25 @@ namespace MarsRover.UI
             string thisIs = MissionControl.Rovers.Count() == 1 ? "This is" : "These are";
             string s = MissionControl.Rovers.Count() == 1 ? "" : "s";
             Console.WriteLine($"\n{thisIs} the final position{s} of the Rover{s}:\n");
+            DrawGrid();
+            
+        }
 
-            List<string[]> rows = [];
+        public static void DrawGrid()
+        {
+            Stack<string[]> rows = [];
 
-            for (int y = 0; y < Plateau.plateauSize.Y+1; y++)
+            for (int y = 0; y < Plateau.plateauSize.Y + 1; y++)
             {
-                string[] newRow = new string[Plateau.plateauSize.X+1];
+                string[] newRow = new string[Plateau.plateauSize.X + 1];
 
-                for(int x = 0; x < Plateau.plateauSize.X+1; x++)
+                for (int x = 0; x < Plateau.plateauSize.X + 1; x++)
                 {
-                    if(x == 0 && y == 0) { newRow[x] = "   "; continue; }
+                    if (x == 0 && y == 0) { newRow[x] = "   "; continue; }
 
-                    if(y == 0) { newRow[x] = $" {x - 1} "; continue; }
+                    if (y == 0) { newRow[x] = $" {x - 1} "; continue; }
 
-                    if(x == 0) { newRow[x] = $" {y - 1} "; continue; }
+                    if (x == 0) { newRow[x] = $" {y - 1} "; continue; }
 
                     newRow[x] = "[ ]";
 
@@ -92,17 +100,15 @@ namespace MarsRover.UI
 
                     foreach (Rover rover in MissionControl.Rovers)
                     {
-                        if(rover.Position.XYCoordinates[0] == x-1 && rover.Position.XYCoordinates[1] == y-1) {newRow[x] = " R "; break; }
+                        if (rover.Position.XYCoordinates[0] == x - 1 && rover.Position.XYCoordinates[1] == y - 1) { newRow[x] = " R "; break; }
                     }
                 }
-                rows.Add(newRow);
+                rows.Push(newRow);
             }
-
-            rows.Reverse();
 
             foreach (string[] row in rows)
             {
-                foreach(string symbol in row)
+                foreach (string symbol in row)
                 {
                     Console.Write($"{symbol}  ");
                 }
