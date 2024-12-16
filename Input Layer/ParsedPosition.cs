@@ -2,7 +2,7 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class ParsedPosition : IParsed
+    public class ParsedPosition : IParsable
     {
         public RoverPostion Position { get; set; } = new RoverPostion([-1, -1], CompassDirection.INVALID);
         public bool IsValid { get; set; } = false;

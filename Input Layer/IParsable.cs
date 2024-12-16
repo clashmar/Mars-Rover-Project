@@ -1,6 +1,6 @@
 ﻿namespace MarsRover.Input_Layer
 {
-    public interface IParsed
+    public interface IParsable
     {
         public bool IsValid { get; set; }
     }

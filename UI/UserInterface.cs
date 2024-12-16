@@ -65,7 +65,9 @@ namespace MarsRover.UI
 
         public static void DisplayResult()
         {
-            Console.WriteLine("\nThese are the final positions of the Rovers:\n");
+            string thisIs = MissionControl.Rovers.Count() == 1 ? "This is" : "These are";
+            string s = MissionControl.Rovers.Count() == 1 ? "" : "s";
+            Console.WriteLine($"\n{thisIs} the final position{s} of the Rover{s}:\n");
 
             List<string[]> rows = [];
 
@@ -81,17 +83,16 @@ namespace MarsRover.UI
 
                     if(x == 0) { newRow[x] = $" {y - 1} "; continue; }
 
-                    foreach(Rover rover in MissionControl.Rovers)
+                    newRow[x] = "[ ]";
+
+                    foreach (int[] coordinate in MissionControl.RouteCoordinates)
                     {
-                        if(rover.Position.XYCoordinates[0] == x-1 && rover.Position.XYCoordinates[1] == y-1)
-                        {
-                            newRow[x] = " R ";
-                            break;
-                        }
-                        else
-                        {
-                            newRow[x] = "[ ]";
-                        }
+                        if (coordinate[0] == x - 1 && coordinate[1] == y - 1) { newRow[x] = " o "; break; }
+                    }
+
+                    foreach (Rover rover in MissionControl.Rovers)
+                    {
+                        if(rover.Position.XYCoordinates[0] == x-1 && rover.Position.XYCoordinates[1] == y-1) {newRow[x] = " R "; break; }
                     }
                 }
                 rows.Add(newRow);

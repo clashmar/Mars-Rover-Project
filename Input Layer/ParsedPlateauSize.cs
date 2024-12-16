@@ -1,6 +1,6 @@
 ﻿namespace MarsRover.Input_Layer
 {
-    public class ParsedPlateauSize : IParsed
+    public class ParsedPlateauSize : IParsable
     {
         public PlateauSize PlateauSize { get; set; } = new(0, 0);
 
@@ -22,7 +22,7 @@
 
             if(!xIsValid || !yIsValid) return;
 
-            if(resultX <= 0 || resultY <= 0) return;
+            if(resultX <= 0 || resultY <= 0 || resultX > 9 || resultY > 9) return;
 
             IsValid = true;
             this.PlateauSize = new(resultX+1, resultY+1);

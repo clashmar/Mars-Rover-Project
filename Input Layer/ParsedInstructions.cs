@@ -2,7 +2,7 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class ParsedInstructions : IParsed
+    public class ParsedInstructions : IParsable
     {
         public List<Instruction> Instructions { get; set; } = new();
 

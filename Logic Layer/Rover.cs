@@ -60,6 +60,8 @@ namespace MarsRover.Logic_Layer
 
             if(!MissionControl.IsCoordinateSafe(targetCoordinates)) { IsObstructed = true; return; }
 
+            MissionControl.RouteCoordinates.Add(Position.XYCoordinates);
+
             IsObstructed = false;
             Position.XYCoordinates = targetCoordinates;
         }

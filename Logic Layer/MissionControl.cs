@@ -7,7 +7,9 @@ namespace MarsRover.Logic_Layer
     {
         public static List<Rover> Rovers = [];
 
-        public static List<IParsed> Mission = [];
+        public static List<IParsable> Mission = [];
+
+        public static List<int[]> RouteCoordinates = [];
 
         public static void ExecuteMissionList()
         {
@@ -38,6 +40,7 @@ namespace MarsRover.Logic_Layer
         {
             Rovers.Clear();
             Mission.Clear();
+            RouteCoordinates.Clear();
             Plateau.plateauSize = new(0,0);
         }
 
