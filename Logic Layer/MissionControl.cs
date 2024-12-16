@@ -19,7 +19,7 @@ namespace MarsRover.Logic_Layer
                 {
                     if (Mission[i] is ParsedPosition parsedPosition)
                     {
-                        if (!MissionControl.IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine($"\nRover {MissionControl.Rovers.Count + 1} could not land!"); return; };
+                        if (!IsCoordinateSafe(parsedPosition.Position.XYCoordinates)) { Console.WriteLine($"\nRover {Rovers.Count + 1} could not land!"); return; };
                         Rover newRover = new(parsedPosition.Position);
                     }
 
@@ -27,7 +27,7 @@ namespace MarsRover.Logic_Layer
                     {
                         foreach (Instruction instruction in parsedInstructions.Instructions)
                         {
-                            MissionControl.Rovers.Last().ExecuteInstruction(instruction);
+                            Rovers.Last().ExecuteInstruction(instruction);
                         }
                     }
                 }
@@ -43,7 +43,7 @@ namespace MarsRover.Logic_Layer
 
         public static bool IsCoordinateOccupied(int[] targetCoordinate)
         {
-            foreach (Rover rover in MissionControl.Rovers)
+            foreach (Rover rover in Rovers)
             {
                 if (rover.Position.XYCoordinates[0] == targetCoordinate[0] && rover.Position.XYCoordinates[1] == targetCoordinate[1]) return true;
             }

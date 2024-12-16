@@ -69,22 +69,28 @@ namespace MarsRover.UI
 
             List<string[]> rows = [];
 
-            for (int y = 0; y < Plateau.plateauSize.Y; y++)
+            for (int y = 0; y < Plateau.plateauSize.Y+1; y++)
             {
-                string[] newRow = new string[Plateau.plateauSize.X];
+                string[] newRow = new string[Plateau.plateauSize.X+1];
 
-                for(int x = 0; x < Plateau.plateauSize.X; x++)
+                for(int x = 0; x < Plateau.plateauSize.X+1; x++)
                 {
+                    if(x == 0 && y == 0) { newRow[x] = "   "; continue; }
+
+                    if(y == 0) { newRow[x] = $" {x - 1} "; continue; }
+
+                    if(x == 0) { newRow[x] = $" {y - 1} "; continue; }
+
                     foreach(Rover rover in MissionControl.Rovers)
                     {
-                        if(rover.Position.XYCoordinates[0] == x && rover.Position.XYCoordinates[1] == y)
+                        if(rover.Position.XYCoordinates[0] == x-1 && rover.Position.XYCoordinates[1] == y-1)
                         {
-                            newRow[x] = "R";
+                            newRow[x] = " R ";
                             break;
                         }
                         else
                         {
-                            newRow[x] = "x";
+                            newRow[x] = "[ ]";
                         }
                     }
                 }
