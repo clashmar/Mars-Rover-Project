@@ -1,4 +1,5 @@
 ﻿using MarsRover.Logic;
+using System.Text.RegularExpressions;
 
 namespace MarsRover.Input_Layer
 {
@@ -13,9 +14,11 @@ namespace MarsRover.Input_Layer
             Parse(plateauInputString);
         }
 
-        public void Parse(string plateauInput)
+        public void Parse(string plateauInputString)
         {
-            string[] plateauInputArray = FilterBracketsAndCommas(plateauInput.Split(' '));
+            if(!Regex.IsMatch(plateauInputString, @"(\(\d, \d\))")) return;
+
+            string[] plateauInputArray = FilterBracketsAndCommas(plateauInputString.Split(' '));
 
             if (plateauInputArray.Length != 2) return;
 
