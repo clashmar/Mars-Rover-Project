@@ -9,13 +9,13 @@ namespace MarsRover.Logic_Layer
         
         public bool IsObstructed = false;
 
-        public string name;
+        public int name;
 
         public Rover(RoverPostion position)
         {
             Position = position;
             MissionControl.Rovers.Add(this);
-            name = $"Rover {MissionControl.Rovers.Count}";
+            name = MissionControl.Rovers.Count;
         }
 
         public void ExecuteInstruction(Instruction instruction)

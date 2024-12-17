@@ -102,7 +102,7 @@ namespace MarsRover.UI
         {
             string thisIs = MissionControl.Rovers.Count() == 1 ? "This is" : "These are";
             string s = MissionControl.Rovers.Count() == 1 ? "" : "s";
-            Console.WriteLine($"\n{thisIs} the final position{s} of the Rover{s}:\n");
+            Console.WriteLine($"\n{thisIs} the final position{s} of the Rover{s}:");
             DrawGrid();
 
         }
@@ -134,7 +134,7 @@ namespace MarsRover.UI
 
                     foreach (Rover rover in MissionControl.Rovers)
                     {
-                        if (rover.Position.XYCoordinates[0] == x - 1 && rover.Position.XYCoordinates[1] == y - 1) { newRow[x] = " R "; break; }
+                        if (rover.Position.XYCoordinates[0] == x - 1 && rover.Position.XYCoordinates[1] == y - 1) { newRow[x] = $"R {rover.name}"; break; }
                     }
                 }
                 rows.Push(newRow);
@@ -151,7 +151,7 @@ namespace MarsRover.UI
 
             foreach (Rover rover in MissionControl.Rovers)
             {
-                Console.WriteLine($"{rover.name}: ({rover.Position.XYCoordinates[0]}, {rover.Position.XYCoordinates[1]}, {Enum.GetName(rover.Position.Facing)})");
+                Console.WriteLine($"Rover {rover.name}: ({rover.Position.XYCoordinates[0]}, {rover.Position.XYCoordinates[1]}, {Enum.GetName(rover.Position.Facing)})");
             }
         }
 
@@ -192,7 +192,7 @@ namespace MarsRover.UI
             "Hit that Y key.",
             "Right there above H.",
             "Next to T.",
-            "And U.",
+            "And U of course.",
             "Seriously?",
             "People usually don't take this long to decide.",
             "I mean I'm glad you're giving it some thought but...",
