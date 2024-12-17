@@ -73,7 +73,7 @@ namespace MarsRover.UI
             {
                 yesNoInput = null;
 
-                Console.Write("\nEnter new Rover position (X, Y, D):");
+                Console.Write("\nEnter new Rover position (X, Y, D): ");
                 while (true)
                 {
                     string? inputPositionString = Console.ReadLine();
@@ -83,7 +83,7 @@ namespace MarsRover.UI
                     MissionControl.Mission.Add(parsedPosition); break;
                 }
 
-                Console.Write("\nEnter Instructions: (LRM)");
+                Console.Write("\nEnter Instructions (LRM): ");
                 while (true)
                 {
                     string? inputInstructionString = Console.ReadLine();
