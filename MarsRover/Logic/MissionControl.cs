@@ -13,8 +13,6 @@ namespace MarsRover.Logic_Layer
 
         public static void ExecuteMissionList()
         {
-            //if (Mission[0] is ParsedPlateauSize parsedPlateauSize) Plateau.plateauSize = parsedPlateauSize.PlateauSize;
-
             for (int i = 0; i < Mission.Count; i++)
             {
                 if (i % 2 == 0)

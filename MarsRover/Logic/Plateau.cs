@@ -1,5 +1,4 @@
-﻿using MarsRover.Input_Layer;
-using MarsRover.Logic;
+﻿using MarsRover.Logic;
 
 namespace MarsRover.Logic_Layer
 {

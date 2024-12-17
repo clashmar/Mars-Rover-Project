@@ -1,6 +1,5 @@
 ﻿using MarsRover.Enums;
 using MarsRover.Logic;
-using System.Text.RegularExpressions;
 
 namespace MarsRover.Input_Layer
 {
@@ -16,8 +15,6 @@ namespace MarsRover.Input_Layer
 
         public void Parse(string positionInputString)
         {
-            if (!Regex.IsMatch(positionInputString, @"(\(\d, \d, [A-Z]\))")) return;
-
             string[] positionInputArray = FilterBracketsAndCommas(positionInputString.Split(' '));
 
             if (positionInputArray.Length != 3) return;

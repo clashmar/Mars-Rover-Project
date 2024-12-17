@@ -1,6 +1,7 @@
 ﻿using MarsRover.Enums;
 using MarsRover.Input_Layer;
 using MarsRover.Logic_Layer;
+using System.Text.RegularExpressions;
 namespace MarsRover.UI
 {
     public static class UserInterface
@@ -58,8 +59,8 @@ namespace MarsRover.UI
                 Console.Write("\nEnter plateau size (X, Y): ");
                 string? inputPlateauString = Console.ReadLine();
                 if (String.IsNullOrEmpty(inputPlateauString)) { Console.WriteLine("Please enter some values."); continue; }
-
                 ParsedPlateauSize parsedPlateauSize = new(inputPlateauString);
+                if (!Regex.IsMatch(inputPlateauString, @"(\(\d, \d\))")) { Console.WriteLine("Please enter values in the correct format."); continue; }
                 if (!parsedPlateauSize.IsValid) { Console.WriteLine("Not a valid plateau size."); continue; }
                 Plateau.plateauSize = parsedPlateauSize.PlateauSize; { DrawGrid(); break; }  
             }
@@ -72,23 +73,25 @@ namespace MarsRover.UI
             while (yesNoInput != ConsoleKey.N)
             {
                 yesNoInput = null;
-
-                Console.Write("\nEnter new Rover position (X, Y, D): ");
+                
                 while (true)
                 {
+                    Console.Write("\nEnter new Rover position (X, Y, D): ");
                     string? inputPositionString = Console.ReadLine();
                     if (String.IsNullOrEmpty(inputPositionString)) { Console.WriteLine("Please enter some values."); continue; }
                     ParsedPosition parsedPosition = new(inputPositionString);
+                    if (!Regex.IsMatch(inputPositionString, @"(\(\d, \d, [A-Z]\))")) { Console.WriteLine("Please enter values in the correct format."); continue; }
                     if (!parsedPosition.IsValid) { Console.WriteLine("Not a valid starting position"); continue; }
                     MissionControl.Mission.Add(parsedPosition); break;
                 }
-
-                Console.Write("\nEnter Instructions (LRM): ");
+                
                 while (true)
                 {
+                    Console.Write("\nEnter Instructions (LRM): ");
                     string? inputInstructionString = Console.ReadLine();
                     if (String.IsNullOrEmpty(inputInstructionString)) { Console.WriteLine("Please enter some values."); continue; }
                     ParsedInstructions parsedInstructions = new(inputInstructionString);
+                    if (!Regex.IsMatch(inputInstructionString, @"(\(.*\))")) { Console.WriteLine("Please enter values in the correct format."); continue; }
                     if (!parsedInstructions.IsValid) { Console.WriteLine("These instructions are invalid"); continue; }
                     MissionControl.Mission.Add(parsedInstructions); break;
                 }

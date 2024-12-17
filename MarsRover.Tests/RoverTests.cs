@@ -4,7 +4,6 @@ using MarsRover.Logic_Layer;
 
 namespace MarsRover.Tests
 {
-
     public class RoverTests
     {
         [SetUp]

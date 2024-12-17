@@ -1,5 +1,4 @@
 ﻿using MarsRover.Enums;
-using System.Text.RegularExpressions;
 
 namespace MarsRover.Input_Layer
 {
@@ -16,8 +15,6 @@ namespace MarsRover.Input_Layer
 
         public void Parse(string instructionInputString)
         {
-            if (!Regex.IsMatch(instructionInputString, @"(\(.*\))")) return;
-
             string[] instructionInputArray = instructionInputString
                 .Select(c => c.ToString()).Where(c => c != "(" && c != ")" && c != ",")
                 .ToArray();
