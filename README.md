@@ -1,5 +1,5 @@
 # Mars Rover Project
-This is console project in C# where the user simulates landing multiple rovers on the surface of Mars and manoeuvres them within a grid.
+This is a console project in C# where the user simulates landing multiple rovers on the surface of Mars and manoeuvres them within a grid.
 
 # Instructions
 * Clone the repo: https://github.com/clashmar/Mars-Rover-Project.git
