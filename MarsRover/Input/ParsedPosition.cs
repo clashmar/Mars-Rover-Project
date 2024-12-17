@@ -1,4 +1,5 @@
 ﻿using MarsRover.Enums;
+using MarsRover.Logic;
 
 namespace MarsRover.Input_Layer
 {

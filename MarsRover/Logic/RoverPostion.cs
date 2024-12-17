@@ -1,6 +1,6 @@
 ﻿using MarsRover.Enums;
 
-namespace MarsRover.Input_Layer
+namespace MarsRover.Logic
 {
     public class RoverPostion(int[] coordinates, CompassDirection facing)
     {

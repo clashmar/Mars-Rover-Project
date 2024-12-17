@@ -1,4 +1,6 @@
-﻿namespace MarsRover.Input_Layer
+﻿using MarsRover.Logic;
+
+namespace MarsRover.Input_Layer
 {
     public class ParsedPlateauSize : ParsedInput, IParsable
     {

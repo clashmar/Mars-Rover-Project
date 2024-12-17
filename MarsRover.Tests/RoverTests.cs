@@ -1,10 +1,10 @@
 ﻿using MarsRover.Enums;
-using MarsRover.Input_Layer;
+using MarsRover.Logic;
 using MarsRover.Logic_Layer;
 
 namespace MarsRover.Tests
 {
-    
+
     public class RoverTests
     {
         [SetUp]

@@ -1,4 +1,4 @@
-﻿namespace MarsRover
+﻿namespace MarsRover.Logic
 {
     public class PlateauSize(int x, int y)
     {
