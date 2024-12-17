@@ -2,7 +2,7 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class ParsedInstructions : IParsable
+    public class ParsedInstructions : ParsedInput, IParsable
     {
         public List<Instruction> Instructions { get; set; } = new();
 
@@ -10,18 +10,22 @@ namespace MarsRover.Input_Layer
 
         public ParsedInstructions(string instructionInputString)
         {
-            ParseInstruction(instructionInputString);
+            Parse(instructionInputString);
         } 
 
-        private void ParseInstruction(string instructionInputString)
+        public void Parse(string instructionInputString)
         {
-            foreach(char c in  instructionInputString)
+            string[] instructionInputArray = instructionInputString
+                .Select(c => c.ToString()).Where(c => c != "(" && c != ")" && c != ",")
+                .ToArray();
+
+            foreach(string s in instructionInputArray)
             {
-                Instruction instruction = c switch
+                Instruction instruction = s switch
                 {
-                    'L' => Instruction.L,
-                    'R' => Instruction.R,
-                    'M' => Instruction.M,
+                    "L" => Instruction.L,
+                    "R" => Instruction.R,
+                    "M" => Instruction.M,
                     _ => Instruction.INVALID
                 };
 

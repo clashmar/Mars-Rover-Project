@@ -3,5 +3,7 @@
     public interface IParsable
     {
         public bool IsValid { get; set; }
+
+        public void Parse(string inputString);
     }
 }

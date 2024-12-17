@@ -1,6 +1,6 @@
 ﻿namespace MarsRover.Input_Layer
 {
-    public class ParsedPlateauSize : IParsable
+    public class ParsedPlateauSize : ParsedInput, IParsable
     {
         public PlateauSize PlateauSize { get; set; } = new(0, 0);
 
@@ -8,12 +8,12 @@
 
         public ParsedPlateauSize(string plateauInputString)
         {
-            ParsePlateauSize(plateauInputString);
+            Parse(plateauInputString);
         }
 
-        private void ParsePlateauSize(string plateauInput)
+        public void Parse(string plateauInput)
         {
-            string[] plateauInputArray = plateauInput.Split(' ');
+            string[] plateauInputArray = FilterBracketsAndCommas(plateauInput.Split(' '));
 
             if (plateauInputArray.Length != 2) return;
 

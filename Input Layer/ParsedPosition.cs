@@ -2,19 +2,19 @@
 
 namespace MarsRover.Input_Layer
 {
-    public class ParsedPosition : IParsable
+    public class ParsedPosition : ParsedInput, IParsable
     {
         public RoverPostion Position { get; set; } = new RoverPostion([-1, -1], CompassDirection.INVALID);
         public bool IsValid { get; set; } = false;
 
         public ParsedPosition(string positionInputString)
         {
-            ParsePosition(positionInputString);
+            Parse(positionInputString);
         }
 
-        private void ParsePosition(string positionInputString)
+        public void Parse(string positionInputString)
         {
-            string[] positionInputArray = positionInputString.Split(' ');
+            string[] positionInputArray = FilterBracketsAndCommas(positionInputString.Split(' '));
 
             if (positionInputArray.Length != 3) return;
 
