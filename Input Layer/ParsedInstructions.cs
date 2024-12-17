@@ -26,6 +26,7 @@ namespace MarsRover.Input_Layer
                     "L" => Instruction.L,
                     "R" => Instruction.R,
                     "M" => Instruction.M,
+                    "H" => Instruction.H,
                     _ => Instruction.INVALID
                 };
 

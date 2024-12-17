@@ -5,6 +5,7 @@
         INVALID,
         L,
         R,
-        M
+        M,
+        H
     }
 }

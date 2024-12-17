@@ -31,7 +31,7 @@ namespace MarsRover.UI
             while (true)
             {
                 yesNoInput = YesOrNo(yesNoInput);
-                if (yesNoInput == ConsoleKey.Y) break;
+                if (yesNoInput == ConsoleKey.Y) { if (counter > 7) Console.WriteLine("That wasn't so hard."); break; }
                 if (counter == notReady.Count()) programStatus = ProgramStatus.COMPLETE;
                 Console.WriteLine(notReady[counter]);
                 counter++;
@@ -105,6 +105,10 @@ namespace MarsRover.UI
             Console.WriteLine($"\n{thisIs} the final position{s} of the Rover{s}:");
             DrawGrid();
 
+            foreach (Rover rover in MissionControl.Rovers)
+            {
+                Console.WriteLine($"Rover {rover.Name}: ({rover.Position.XYCoordinates[0]}, {rover.Position.XYCoordinates[1]}, {Enum.GetName(rover.Position.Facing)}) {rover.Honk()}");
+            }
         }
 
         public static void DrawGrid()
@@ -134,7 +138,7 @@ namespace MarsRover.UI
 
                     foreach (Rover rover in MissionControl.Rovers)
                     {
-                        if (rover.Position.XYCoordinates[0] == x - 1 && rover.Position.XYCoordinates[1] == y - 1) { newRow[x] = $"R {rover.name}"; break; }
+                        if (rover.Position.XYCoordinates[0] == x - 1 && rover.Position.XYCoordinates[1] == y - 1) { newRow[x] = $"R {rover.Name}"; break; }
                     }
                 }
                 rows.Push(newRow);
@@ -147,11 +151,6 @@ namespace MarsRover.UI
                     Console.Write($"{symbol}  ");
                 }
                 Console.WriteLine("\n");
-            }
-
-            foreach (Rover rover in MissionControl.Rovers)
-            {
-                Console.WriteLine($"Rover {rover.name}: ({rover.Position.XYCoordinates[0]}, {rover.Position.XYCoordinates[1]}, {Enum.GetName(rover.Position.Facing)})");
             }
         }
 

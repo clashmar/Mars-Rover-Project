@@ -9,18 +9,21 @@ namespace MarsRover.Logic_Layer
         
         public bool IsObstructed = false;
 
-        public int name;
+        public int Name;
+
+        public int Honker = 0;
 
         public Rover(RoverPostion position)
         {
             Position = position;
             MissionControl.Rovers.Add(this);
-            name = MissionControl.Rovers.Count;
+            Name = MissionControl.Rovers.Count;
         }
 
         public void ExecuteInstruction(Instruction instruction)
         {
             if (instruction == Instruction.M) MoveRover();
+            else if(instruction == Instruction.H) Honker += 1;
             else RotateRover(instruction);
         }
 
@@ -76,6 +79,18 @@ namespace MarsRover.Logic_Layer
                 CompassDirection.W => [Position.XYCoordinates[0] - 1, Position.XYCoordinates[1]],
                 _ => [Position.XYCoordinates[0], Position.XYCoordinates[1]]
             };
+        }
+
+        public string Honk()
+        {
+            string honk = "";
+
+            for (int i = 0; i < Honker; i ++)
+            {
+                honk += "Honk! ";
+            }
+
+            return honk;
         }
     }
 }
